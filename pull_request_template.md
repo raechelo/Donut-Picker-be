@@ -35,4 +35,4 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 
 
 Co-Authored-By: name <additional-dev-1@example.com>
-Co-Authored-By: name <additional-dev-2@example.com>test
+Co-Authored-By: name <additional-dev-2@example.com>
