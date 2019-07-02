@@ -3,7 +3,6 @@ exports.up = function(knex) {
       knex.schema.createTable("projects", function(table) {
         table.increments("id").primary();
         table.string("name");
-        table.specificType('palettes', 'jsonb[]');
         table.timestamps(true, true);
       }),
   
