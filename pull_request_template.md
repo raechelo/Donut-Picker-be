@@ -34,5 +34,5 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] I have commented on my code, particularly in hard-to-understand areas
 
 
-Co-Authored-By: name <additional-dev-1@example.com>
-Co-Authored-By: name <additional-dev-2@example.com>
+Co-Authored-By: Raechel Odom <odom.raechel@gmail.com>
+Co-Authored-By: Rachael Drennan <rdrennan0@gmail.com>
