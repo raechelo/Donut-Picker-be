@@ -48,7 +48,7 @@ app.get('/api/v1/projects', (req, res) => {
     })
 })
 
-app.get('/api/v1/projects:/id', (req, res) => {
+app.get('/api/v1/projects/:id', (req, res) => {
   database('projects').where('id', req.params.id).select()
     .then(projects => {
       if (projects.length) res.status(200).json(projects)
@@ -58,7 +58,6 @@ app.get('/api/v1/projects:/id', (req, res) => {
 
 app.post('/api/v1/projects', (req, res) => {
   const project = req.body
-  console.log(project)
   for (let requiredParam of ['name']){
     if(!project[requiredParam]){
       return res.status(422).send('nope')
@@ -66,6 +65,18 @@ app.post('/api/v1/projects', (req, res) => {
   }
   database('projects').insert(project, "id").then(project => {
     res.status(201).json({id: project[0]})
+  })
+})
+
+app.post('/api/v1/palettes', (req, res) => {
+  const palette = req.body
+  for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {
+    if (!palette[requiredParam]) {
+      return res.status(422).json(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
+    }
+  }
+  database('palettes').insert(palette, 'id').then(palette => {
+    res.status(201).json({id: palette[0]})
   })
 })
 
