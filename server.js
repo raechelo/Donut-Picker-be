@@ -76,7 +76,7 @@ app.post('/api/v1/palettes', (req, res) => {
     }
   }
   database('palettes').insert(palette, 'id').then(palette => {
-    res.status(201).json({id: palette.id})
+    res.status(201).json({id: palette[0]})
   })
 })
 
