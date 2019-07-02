@@ -1,7 +1,12 @@
-const express = require('express');
+const express = require("express");
+const environment = process.env.NODE_ENV || "development";
+const configuration = require("./knexfile")[environment];
+const database = require("knex")(configuration);
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-app.set('port', process.env.PORT || 3001);
+
+app.set('port', PORT);
 
 app.get('/api/v1/palettes', (req, res) => {
   database('palettes').select()
@@ -9,7 +14,7 @@ app.get('/api/v1/palettes', (req, res) => {
       res.status(200).json(palettes);
     })
     .catch(error => {
-      res.status(500).json(`Sorry! There are currently no palettes available.`)
+      res.status(500).json({error})
     });
 });
 
@@ -32,18 +37,28 @@ app.get('/api/v1/projects', (req, res) => {
       res.status(200).json(projects);
     })
     .catch(error => {
-      res.status(500).json(`Sorry! There are currently no projects available.`)
+      res.status(500).json({error})
     })
 })
 
 app.get('/api/v1/projects:/id', (req, res) => {
-  databse('projects').where('id', req.params.id).select()
+  database('projects').where('id', req.params.id).select()
     .then(projects => {
       if (projects.length) res.status(200).json(projects)
-      else res.status(500).json({
-        error: `Error! Could not find project with that id`
-      })
+      else res.status(500).json({error})
     })
+})
+
+app.post('/api/v1/projects', (req ,res) => {
+  const project = req.body
+  for (let requiredParam of ['name']){
+    if(!project[requiredParam]){
+      return res.status(422).send('nope')
+    }
+  }
+  database('projects').insert(project, "id").then(project => {
+    res.status(201).json({id: project[0]})
+  })
 })
 
 app.listen(app.get('port'), () => {
