@@ -98,13 +98,15 @@ app.put('/api/v1/palettes/:id', (req, res) => {
   const { name, color_1, color_2, color_3, color_4, color_5, color_6 } = req.body
   for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {
     if (!palette[requiredParam]) {
-      return res.status(422).json(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
+      return res.status(422).send(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
     }
   }
   database('palettes').select()
     .then(palettes => {
       palettes.forEach(palette => {
-        if (palette.id !== parseInt(id)) res.status(404).json('Error! Could not find palette, update unsuccessful')
+        if (palette.id !== parseInt(id)) {
+          res.status(404).send('Error! Could not find palette, update unsuccessful')
+        }
         else {
           database('palettes').where('id', req.params.id).update({
             name,
@@ -115,10 +117,8 @@ app.put('/api/v1/palettes/:id', (req, res) => {
             color_5,
             color_6
           })
+          .then(palette => res.status(200).send('Palette Updated!'))
         }
-      })
-      .then(palette => {
-        res.status(200).json({id, ...palette})
       })
   })
   .catch(error => {
