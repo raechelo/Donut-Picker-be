@@ -27,6 +27,7 @@ const createpalette = (knex, palette) => {
     color_4: palette.color_4,
     color_5: palette.color_5,
     color_6: palette.color_6,
+    project_id: palette.projectId
   
   });
 };

@@ -60,7 +60,7 @@ app.post('/api/v1/projects', (req, res) => {
   const project = req.body
   for (let requiredParam of ['name']){
     if(!project[requiredParam]){
-      return res.status(422).send('nope')
+      return res.status(422).send(`Error! Required format of Name:<String>. You're missing a required field of ${requiredParam}`)
     }
   }
   database('projects').insert(project, "id").then(project => {
@@ -136,3 +136,31 @@ app.put('/api/v1/palettes/:id', (req, res) => {
         res.status(500).json({error})
       })
     })
+app.delete('/api/v1/projects/:id', (req, res) => { 
+  const { id } = res.params;
+  if (!id) return res.status(422).json({ error: `A project with that id does not exist, try again`}); 
+  database('palettes').where('project_id', id).del() 
+  .then(() => database('projects').where('id', id).del()) 
+  .then(() => res.status(204).json(`A project with id of: ${id}, has been deleted, along with its associated palettes.`))  
+  .catch(error => res.status(500).json({ error })); 
+})
+
+app.put('/api/v1/projects/:id', (req, res) => {
+  const { id } = req.params
+  const project = req.body
+  for (let requiredParam of ['name']) {
+    if (!project[reqParam]) return res.status(422).send(`Error! Required format of Name:<String>. You're missing a required field of ${requiredParam}`)
+  }
+  database('projects').select()
+    .then(projects => {
+      let found = projects.indexOf(project => {return project.id === parseInt(id)})
+      if(found >= 0) {
+        database('projects').where('id', id).update({ name })
+        .then(project => {res.status(200).json({ id, ...project })})
+      }else{
+        return res.status(404).json(`Project not found! Update unsuccessful.`)}
+    })
+    .catch(error => {
+      res.status(500).json({ error })
+    })
+})
