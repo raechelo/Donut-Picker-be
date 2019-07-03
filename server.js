@@ -93,28 +93,19 @@ app.delete('/api/v1/palettes/:id', (req, res) => {
 
 app.put('/api/v1/palettes/:id', (req, res) => {
   const palette = req.body
-  // get palette id from request params
   const { id } = req.params
-  // get name and colors from palette table
   const { name, color_1, color_2, color_3, color_4, color_5, color_6 } = req.body
-  // for loop with required parameters
   for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {
     if (!palette[requiredParam]) {
       return res.status(422).json(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
     }
   }
-  // select database
   database('palettes').select()
-  // then take palettes
     .then(palettes => {
-      // for each palette,
       palettes.forEach(palette => {
-        // if id !== param id
-        // return 422 status and error
-        if (palette.id !== parseInt(id)) res.status(422).json('Error! Could not find palette, update unsuccessful')
-        // else get database where id === id
+        if (palette.id !== parseInt(id)) res.status(404).json('Error! Could not find palette, update unsuccessful')
         else {
-          database('palettes').where('id', id).update({
+          database('palettes').where('id', req.params.id).update({
             name,
             color_1,
             color_2,
@@ -123,19 +114,17 @@ app.put('/api/v1/palettes/:id', (req, res) => {
             color_5,
             color_6
           })
-          .then(palette => {
-            res.status(200).json({id})
-          })
         }
-      // update all props
-      // return 204 and successful update message
-      // catch error
-    })
-  })
-      .catch(error => {
-        res.status(500).json({error})
       })
-    })
+      .then(palette => {
+        res.status(200).json({id, ...palette})
+      })
+  })
+  .catch(error => {
+    res.status(500).json({error})
+  })
+})
+
 app.delete('/api/v1/projects/:id', (req, res) => { 
   const { id } = res.params;
   if (!id) return res.status(422).json({ error: `A project with that id does not exist, try again`}); 
@@ -149,7 +138,7 @@ app.put('/api/v1/projects/:id', (req, res) => {
   const { id } = req.params
   const project = req.body
   for (let requiredParam of ['name']) {
-    if (!project[reqParam]) return res.status(422).send(`Error! Required format of Name:<String>. You're missing a required field of ${requiredParam}`)
+    if (!project[requiredParam]) return res.status(422).send(`Error! Required format of Name:<String>. You're missing a required field of ${requiredParam}`)
   }
   database('projects').select()
     .then(projects => {
