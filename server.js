@@ -80,3 +80,59 @@ app.post('/api/v1/palettes', (req, res) => {
   })
 })
 
+app.delete('/api/v1/palettes/:id', (req, res) => {
+  database('palettes').where('id', req.params.id).delete()
+    .then(palette => {
+      if (!palette) res.status(422).json('Error! Could not delete, a palette with that id does not exist.')
+      else res.status(200).json('Successfully deleted palette.')
+    })
+    .catch(error => {
+      return res.status(500).json({error})
+    })
+})
+
+app.put('/api/v1/palettes/:id', (req, res) => {
+  const palette = req.body
+  // get palette id from request params
+  const { id } = req.params
+  // get name and colors from palette table
+  const { name, color_1, color_2, color_3, color_4, color_5, color_6 } = req.body
+  // for loop with required parameters
+  for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {
+    if (!palette[requiredParam]) {
+      return res.status(422).json(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
+    }
+  }
+  // select database
+  database('palettes').select()
+  // then take palettes
+    .then(palettes => {
+      // for each palette,
+      palettes.forEach(palette => {
+        // if id !== param id
+        // return 422 status and error
+        if (palette.id !== parseInt(id)) res.status(422).json('Error! Could not find palette, update unsuccessful')
+        // else get database where id === id
+        else {
+          database('palettes').where('id', id).update({
+            name,
+            color_1,
+            color_2,
+            color_3,
+            color_4,
+            color_5,
+            color_6
+          })
+          .then(palette => {
+            res.status(200).json({id})
+          })
+        }
+      // update all props
+      // return 204 and successful update message
+      // catch error
+    })
+  })
+      .catch(error => {
+        res.status(500).json({error})
+      })
+    })
