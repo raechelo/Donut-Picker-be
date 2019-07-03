@@ -92,38 +92,21 @@ app.delete('/api/v1/palettes/:id', (req, res) => {
 })
 
 app.put('/api/v1/palettes/:id', (req, res) => {
-  const palette = req.body
-  const { id } = req.params
-  const { name, color_1, color_2, color_3, color_4, color_5, color_6 } = req.body
-  for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {
-    if (!palette[requiredParam]) {
-      return res.status(422).send(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
-    }
-  }
-  database('palettes').select()
-    .then(palettes => {
-      palettes.forEach(palette => {
-        if (palette.id !== parseInt(id)) {
-          res.status(404).send('Error! Could not find palette, update unsuccessful')
-        }
-        else {
-          database('palettes').where('id', req.params.id).update({
-            name,
-            color_1,
-            color_2,
-            color_3,
-            color_4,
-            color_5,
-            color_6
-          })
-          .then(palette => res.status(200).send('Palette Updated!'))
-        }
-      })
+  const { id } = req.params;
+  const updatedPalette = req.body;
+
+  database('palettes').where({ id })
+  .update({ ...updatedPalette }, 'id')
+  .then((id) => {
+    if (!id.length) {
+      res.status(404).json({ 
+        error: 'Failed to update: Palette does not exist' 
+      });
+    } else res.status(200).send('Updated Palette!');
   })
-  .catch(error => {
-    res.status(500).json({error})
-  })
+  .catch(error => res.status(500).json({ error }))  
 })
+
 
 app.delete('/api/v1/projects/:id', (req, res) => { 
   const { id } = res.params;
@@ -135,21 +118,16 @@ app.delete('/api/v1/projects/:id', (req, res) => {
 })
 
 app.put('/api/v1/projects/:id', (req, res) => {
-  const { id } = req.params
-  const project = req.body
-  for (let requiredParam of ['name']) {
-    if (!project[requiredParam]) return res.status(422).send(`Error! Required format of Name:<String>. You're missing a required field of ${requiredParam}`)
-  }
-  database('projects').select()
-    .then(projects => {
-      let found = projects.indexOf(project => {return project.id === parseInt(id)})
-      if(found >= 0) {
-        database('projects').where('id', id).update({ name })
-        .then(project => {res.status(200).json({ id, ...project })})
-      }else{
-        return res.status(404).json(`Project not found! Update unsuccessful.`)}
-    })
-    .catch(error => {
-      res.status(500).json({ error })
-    })
+  const { id } = req.params;
+  const { name } = req.body;
+
+  database('projects').where({ id }).update({ name }, 'id')
+  .then((id) => {
+    if (!id.length) {
+      res.status(404).json({ 
+        error: 'Failed to update: Project does not exist' 
+      });
+    } else res.sendStatus(202);
+  })
+  .catch(error => res.status(500).json({ error }))  
 })
