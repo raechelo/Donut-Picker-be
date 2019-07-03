@@ -80,6 +80,7 @@ app.post('/api/v1/palettes', (req, res) => {
   })
 })
 
+
 app.delete('/api/v1/palettes/:id', (req, res) => {
   database('palettes').where('id', req.params.id).delete()
     .then(palette => {
@@ -149,7 +150,7 @@ app.put('/api/v1/projects/:id', (req, res) => {
   const { id } = req.params
   const project = req.body
   for (let requiredParam of ['name']) {
-    if (!project[reqParam]) return res.status(422).send(`Error! Required format of Name:<String>. You're missing a required field of ${requiredParam}`)
+    if (!project[requiredParam]) return res.status(422).send(`Error! Required format of Name:<String>. You're missing a required field of ${requiredParam}`)
   }
   database('projects').select()
     .then(projects => {
@@ -158,7 +159,7 @@ app.put('/api/v1/projects/:id', (req, res) => {
         database('projects').where('id', id).update({ name })
         .then(project => {res.status(200).json({ id, ...project })})
       }else{
-        return res.status(404).json(`Project not found! Update unsuccessful.`)}
+        return res.status(404).json(`Project not found! Could not update.`)}
     })
     .catch(error => {
       res.status(500).json({ error })
