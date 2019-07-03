@@ -136,7 +136,7 @@ app.put('/api/v1/palettes/:id', (req, res) => {
         res.status(500).json({error})
       })
     })
-app.delete('/api/v1/projects/:id', (res, res) => { 
+app.delete('/api/v1/projects/:id', (req, res) => { 
   const { id } = res.params;
   if (!id) return res.status(422).json({ error: `A project with that id does not exist, try again`}); 
   database('palettes').where('project_id', id).del() 
