@@ -127,7 +127,7 @@ app.put('/api/v1/projects/:id', (req, res) => {
       res.status(404).json({ 
         error: 'Failed to update: Project does not exist' 
       });
-    } else res.sendStatus(202);
+    } else res.status(202).send('Project updated!');
   })
   .catch(error => res.status(500).json({ error }))  
 })
