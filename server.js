@@ -80,6 +80,7 @@ app.post('/api/v1/palettes', (req, res) => {
   })
 })
 
+
 app.delete('/api/v1/palettes/:id', (req, res) => {
   database('palettes').where('id', req.params.id).delete()
     .then(palette => {
@@ -130,4 +131,5 @@ app.put('/api/v1/projects/:id', (req, res) => {
     } else res.status(202).send('Project updated!');
   })
   .catch(error => res.status(500).json({ error }))  
+
 })
