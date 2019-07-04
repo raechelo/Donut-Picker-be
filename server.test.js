@@ -70,6 +70,14 @@ describe('Server', () => {
 
   describe('POST /palettes', () => {
 
+    it('should post a new palette to the database', async () => {
+      const newPalette = { name: 'Earth Tones',   color_1: '#FFD289', color_2: '#9B8816', color_3: '#9C6103', color_4: '#F98948', color_5: '#97CC04', color_6: '#729EA1' };
+      const res = await request(app).post(`/api/v1/palettes`).send(newPalette);
+      const palettes = await database('palettes').where('id', res.body.id).select();
+      const palette = palettes[0];
+      expect(res.status).toBe(201);
+      expect(palette.name).toEqual(newPalette.name);
+    })
   });
 
   describe('PUT /projects', () => {
@@ -99,6 +107,42 @@ describe('Server', () => {
     });
   });
 
+  describe('DELETE /projects', () => {
+
+    it.skip('should delete an existing project from the database', async () => {
+      const project = await database('projects').first();
+      const id = project.id;
+      const res = await request(app).delete(`/api/v1/projects/${id}`);
+      const deletedProject = database('projects').where({id:id})
+      expect(deletedProject).toEqual(undefined);
+    });
+  });
+
+  it.skip('should return the proper status code if there is no project with that id in the database', async () => {
+    const res = await request(app).delete(`/api/v1/projects/10000`);
+    const error = {error: `A project with that id does not exist, try again`};
+    expect(res.status).toBe(422);
+    expect(res.body).toBe(error)
+  });
+
+  describe('DELETE /palettes', () => {
+
+    it.skip('should delete an existing palette from the database', async () => {
+      const palette = await database('palettes').first();
+      const id = palette.id;
+      const res = await request(app).delete(`/api/v1/palettes/${id}`);
+      const deletedPalette = database('palettes').where({id:id})
+      expect(deletedPalette).toEqual(undefined);
+      expect(res.status).toBe(204);
+    });
+
+    it('should return the proper status code is there is no palette with that id in the database', async () => {
+      const res = await request(app).delete(`/api/v1/palettes/10000`);
+      const error = 'Error! Could not delete, a palette with that id does not exist.';
+      expect(res.status).toBe(422);
+      expect(res.body).toBe(error);
+    });
+  });
 
  
 });
