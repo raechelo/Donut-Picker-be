@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">54.67% </span>
+        <span class="strong">65.33% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>41/75</span>
+        <span class='fraction'>49/75</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/20</span>
+        <span class='fraction'>8/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">44.83% </span>
+        <span class="strong">58.62% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>13/29</span>
+        <span class='fraction'>17/29</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">54.93% </span>
+        <span class="strong">64.79% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>39/71</span>
+        <span class='fraction'>46/71</span>
       </div>
     </div>
     <p class="quiet">
@@ -250,21 +250,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -383,22 +383,22 @@ app.post('/api/v1/projects', (req, res) =&gt; {
   })
 })
 &nbsp;
-app.post('/api/v1/palettes', <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-  const palette = <span class="cstat-no" title="statement not covered" >req.body</span>
-<span class="cstat-no" title="statement not covered" >  for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {</span>
-<span class="cstat-no" title="statement not covered" >    if (!palette[requiredParam]) {</span>
+app.post('/api/v1/palettes', (req, res) =&gt; {
+  const palette = req.body
+  for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!palette[requiredParam]) {
 <span class="cstat-no" title="statement not covered" >      return res.status(422).json(`Error! Required format of Name:&lt;String&gt; and Color:&lt;String&gt;. You're missing a required field of ${requiredParam}`)</span>
     }
   }
-<span class="cstat-no" title="statement not covered" >  database('palettes').insert(palette, 'id').then(<span class="fstat-no" title="function not covered" >pa</span>lette =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    res.status(201).json({id: palette[0]})</span>
+  database('palettes').insert(palette, 'id').then(palette =&gt; {
+    res.status(201).json({id: palette[0]})
   })
 })
 &nbsp;
-app.delete('/api/v1/palettes/:id', <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >  database('palettes').where('id', req.params.id).delete()</span>
-    .then(<span class="fstat-no" title="function not covered" >pa</span>lette =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!palette) <span class="cstat-no" title="statement not covered" >res.status(422).json('Error! Could not delete, a palette with that id does not exist.')</span></span>
+app.delete('/api/v1/palettes/:id', (req, res) =&gt; {
+  database('palettes').where('id', req.params.id).delete()
+    .then(palette =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (!palette) res.status(422).json('Error! Could not delete, a palette with that id does not exist.')
       else <span class="cstat-no" title="statement not covered" >res.status(200).json('Successfully deleted palette.')</span>
     })
     .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {
@@ -454,7 +454,7 @@ module.exports = app;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 04 2019 15:54:10 GMT-0600 (Mountain Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 04 2019 16:34:15 GMT-0600 (Mountain Daylight Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
