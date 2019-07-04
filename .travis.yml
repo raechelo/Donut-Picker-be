@@ -5,3 +5,7 @@ services:
   - postgresql
 before_script:
   - psql -c 'CREATE DATABASE palettepicker_test;' -U postgres
+  - psql \c 'palettepicker' -U postgres
+test:
+  adapter: postgresql
+  database: palettepicker_test
