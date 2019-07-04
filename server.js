@@ -6,7 +6,6 @@ const database = require("knex")(configuration);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-
 app.set('port', PORT);
 
 app.use(bodyParser.json())
@@ -133,3 +132,6 @@ app.put('/api/v1/projects/:id', (req, res) => {
   .catch(error => res.status(500).json({ error }))  
 
 })
+
+
+module.exports = app;
