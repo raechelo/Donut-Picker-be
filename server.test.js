@@ -199,20 +199,31 @@ describe('Server', () => {
 
   describe('DELETE /projects', () => {
 
+    it.skip('should return a status code of 200', async () => {
+      const project = await database('projects').first();
+      const id = project.id;
+      const res = await request(app).delete(`/api/v1/projects/${id}`);
+      expect(res.status).toEqual(200);
+    })
+
     it.skip('should delete an existing project from the database', async () => {
       const project = await database('projects').first();
       const id = project.id;
       const res = await request(app).delete(`/api/v1/projects/${id}`);
-      const deletedProject = database('projects').where({id:id})
-      expect(deletedProject).toEqual(undefined);
+      // const deletedProject = database('projects').where('id', id).select()
+      expect(res.status).toEqual(undefined);
     });
     
-    it.skip('should return the proper status code if there is no project with that id in the database', async () => {
+    it.skip('should return the proper status code', async () => {
+      const res = await request(app).delete(`/api/v1/projects/10000`);
+      expect(res.status).toBe(422);
+    });
+    
+    it.skip('should return the proper error', async () => {
       const res = await request(app).delete(`/api/v1/projects/10000`);
       const error = {error: `A project with that id does not exist, try again`};
-      expect(res.status).toBe(422);
-      expect(res.body).toBe(error)
-    });
+      expect(res.body).toBe(error);
+    })
 
   });
     
