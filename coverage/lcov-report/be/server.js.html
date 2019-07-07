@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">65.33% </span>
+        <span class="strong">68% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>49/75</span>
+        <span class='fraction'>51/75</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>8/20</span>
+        <span class='fraction'>10/20</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">58.62% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>17/29</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64.79% </span>
+        <span class="strong">67.61% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>46/71</span>
+        <span class='fraction'>48/71</span>
       </div>
     </div>
     <p class="quiet">
@@ -197,22 +197,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -220,9 +207,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -230,22 +220,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -343,8 +343,8 @@ app.get('/api/v1/palettes', (req, res) =&gt; {
 app.get('/api/v1/palettes/:id', (req, res) =&gt; {
   database('palettes').where('id', req.params.id).select()
     .then(palettes =&gt; {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (palettes.length) res.status(200).json(palettes)
-      else <span class="cstat-no" title="statement not covered" >res.status(404).json({</span>
+      if (palettes.length) res.status(200).json(palettes)
+      else res.status(404).json({
         error: `Error! Could not find a palette with that id.`
       })
     })
@@ -374,8 +374,8 @@ app.get('/api/v1/projects/:id', (req, res) =&gt; {
 app.post('/api/v1/projects', (req, res) =&gt; {
   const project = req.body
   for (let requiredParam of ['name']){
-    <span class="missing-if-branch" title="if path not taken" >I</span>if(!project[requiredParam]){
-<span class="cstat-no" title="statement not covered" >      return res.status(422).send(`Error! Required format of Name:&lt;String&gt;. You're missing a required field of ${requiredParam}`)</span>
+    if(!project[requiredParam]){
+      return res.status(422).send(`Error! Required format of Name:&lt;String&gt;. You're missing a required field of ${requiredParam}`)
     }
   }
   database('projects').insert(project, "id").then(project =&gt; {
@@ -454,7 +454,7 @@ module.exports = app;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 04 2019 16:34:15 GMT-0600 (Mountain Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Jul 07 2019 14:50:36 GMT-0600 (Mountain Daylight Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

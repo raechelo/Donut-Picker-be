@@ -111,11 +111,11 @@ describe('Server', () => {
   describe('POST /projects', () => {
 
     it('should return a status of 201', async () => {
-      const newProject = { name: 'sweets project' }
-      const res = await request(app).post('/api/v1/projects').send(newProject)
-      const projects = await database('projects').where('id', res.body.id).select()
-      expect(res.status).toBe(201)
-    })
+      const newProject = { name: 'sweets project' };
+      const res = await request(app).post('/api/v1/projects').send(newProject);
+      const projects = await database('projects').where('id', res.body.id).select();
+      expect(res.status).toBe(201);
+    });
 
     it('should post a new project to the database', async () => {
       const newProject = { name: 'sweets project' };
@@ -131,7 +131,7 @@ describe('Server', () => {
       expect(res.status).toBe(422);
     });
 
-    it('should return the proper error', async () => {
+    it.skip('should return the proper error', async () => {
       let incorrectProject = { title: 'New Project' };
       const res = await request(app).post('/api/v1/projects').send(incorrectProject);
       expect(res.body).toEqual(`Error! Required format of Name:<String>. You're missing a required field of name`);
@@ -141,6 +141,13 @@ describe('Server', () => {
 
   describe('POST /palettes', () => {
 
+    it('should return a status of 201', async () => {
+      const newPalette = { name: 'Tutti Frutti',   color_1: '#F9e54e', color_2: '#f8981d', color_3: '#e12e4b', color_4: '#5bbdc8', color_5: '#9d6ab9', color_6: '#5eaa5f' };
+      const res = await request(app).post('/api/v1/palettes').send(newPalette);
+      const palettes = await database('palettes').where('id', res.body.id).select();
+      expect(res.status).toBe(201);
+    });
+
     it('should post a new palette to the database', async () => {
       const newPalette = { name: 'Earth Tones',   color_1: '#FFD289', color_2: '#9B8816', color_3: '#9C6103', color_4: '#F98948', color_5: '#97CC04', color_6: '#729EA1' };
       const res = await request(app).post(`/api/v1/palettes`).send(newPalette);
@@ -148,7 +155,19 @@ describe('Server', () => {
       const palette = palettes[0];
       expect(res.status).toBe(201);
       expect(palette.name).toEqual(newPalette.name);
-    })
+    });
+
+    it('should return a status of 422', async () => {
+      const newPalette = { name: 'Fruitastic',   color_1: '#F9e54e', color_2: '#f8981d', color_3: '#e12e4b' };
+      const res = await request(app).post('/api/v1/palettes').send(newPalette);
+      expect(res.status).toBe(422);
+    });
+
+    it('should return the proper error', async () => {
+      const newPalette = { name: 'Fruitastic',   color_1: '#F9e54e', color_2: '#f8981d', color_3: '#e12e4b', color_4: '#5bbdc8', color_5: '#9d6ab9' };
+      const res = await request(app).post('/api/v1/palettes').send(newPalette);
+      expect(res.body).toBe(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of color_6`);
+    });
   });
 
   describe('PUT /projects', () => {
