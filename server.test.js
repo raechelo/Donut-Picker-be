@@ -172,6 +172,17 @@ describe('Server', () => {
 
   describe('PUT /projects', () => {
 
+    it.skip('should return a status code of 200', async () => {
+      let projectToUpdate = await database('projects').first();
+      const id = projectToUpdate.id;
+      const name = 'Sweets Project';
+      projectToUpdate = { ...projectToUpdate, name };
+
+      const res = await request(app).put(`/api/v1/projects/${id}`);
+      const project = await database('projects').where('id', id).update(projectToUpdate);
+      expect(res.status).toBe(200);
+    });
+
     it('should update an existing project in the database', async () => {
       let projectToUpdate = await database('projects').first();
       const id = projectToUpdate.id;
@@ -179,7 +190,7 @@ describe('Server', () => {
       projectToUpdate = { ...projectToUpdate, name };
 
       const res = await request(app).put(`/api/v1/projects/${id}`);
-      const project = await database('projects').where({ id: id }).first();
+      const project = await database('projects').where({ id: id }).update(projectToUpdate);
       expect(projectToUpdate.name).toEqual(name);
     });
   });
@@ -229,21 +240,31 @@ describe('Server', () => {
     
   describe('DELETE /palettes', () => {
 
+    it('should return a status code of 200', async () => {
+      const project = await database('palettes').first();
+      const id = project.id;
+      const res = await request(app).delete(`/api/v1/palettes/${id}`);
+      expect(res.status).toEqual(200);
+    });
+
     it.skip('should delete an existing palette from the database', async () => {
       const palette = await database('palettes').first();
       const id = palette.id;
       const res = await request(app).delete(`/api/v1/palettes/${id}`);
       const deletedPalette = database('palettes').where({id:id})
       expect(deletedPalette).toEqual(undefined);
-      expect(res.status).toBe(204);
     });
 
     it('should return the proper status code is there is no palette with that id in the database', async () => {
       const res = await request(app).delete(`/api/v1/palettes/10000`);
       const error = 'Error! Could not delete, a palette with that id does not exist.';
-      expect(res.status).toBe(422);
       expect(res.body).toBe(error);
     });
+
+    it('should return a 422 status', async () => {
+      const res = await request(app).delete(`/api/v1/palettes/10000`);
+      expect(res.status).toBe(422);
+    })
   });
 
  
