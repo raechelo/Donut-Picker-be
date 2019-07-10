@@ -55,6 +55,15 @@ app.get('/api/v1/projects/:id', (req, res) => {
     })
 })
 
+app.get('/api/v1/projects/:name', (req, res) => {
+  database('projects').where('name', req.params.name).select()
+    .then(project => {
+      if (project) res.status(200).json(project)
+      else res.status(500).json({error})
+    })
+})
+
+
 app.post('/api/v1/projects', (req, res) => {
   const project = req.body
   for (let requiredParam of ['name']){
