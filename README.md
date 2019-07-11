@@ -50,13 +50,13 @@ https://github.com/raechelo/Palette-Picker-fe
 [
   {
     "id": 7,
-    "title: "My First Palette",
+    "name: "Number Guesser",
     "created_at": "2019-07-10 20:07:14.202374-06",
     "updated_at": "2019-07-10 20:07:14.202374-06"
   },
   {
     "id": 8,
-    "title: "Dog Party",
+    "name: "Dog Party",
     "created_at": "2019-07-10 20:07:14.202374-06",
     "updated_at": "2019-07-10 20:07:14.202374-06"
   }
