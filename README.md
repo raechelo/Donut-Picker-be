@@ -27,11 +27,10 @@ launch in your browser:
 $ npm start
 ```
 
-## The database tables:
-Database: "palettepicker"
-Table: "palettes"
+## Database: "palettepicker"
+### Table: "palettes"
 <img width="643" alt="Screen Shot 2019-07-10 at 11 02 56 PM" src="https://user-images.githubusercontent.com/39016273/61023414-1b826480-a367-11e9-9297-776696b895a2.png">
-Table: "projects"
+### Table: "projects"
 <img width="1123" alt="Screen Shot 2019-07-10 at 11 03 40 PM" src="https://user-images.githubusercontent.com/39016273/61023416-1d4c2800-a367-11e9-8b98-228e4aab193b.png">
 
 
