@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1562726341917" clover="3.2.0">
-  <project timestamp="1562726341917" name="All files">
-    <metrics statements="97" coveredstatements="49" conditionals="22" coveredconditionals="7" methods="40" coveredmethods="10" elements="159" coveredelements="66" complexity="0" loc="97" ncloc="97" packages="2" files="4" classes="4"/>
-    <package name="backend">
-      <metrics statements="80" coveredstatements="43" conditionals="22" coveredconditionals="7" methods="31" coveredmethods="8"/>
-      <file name="data.js" path="/Users/rachaeldrennan/Projects/Module4/Palette-Picker/backend/data.js">
+
+<coverage generated="1562813369472" clover="3.2.0">
+  <project timestamp="1562813369472" name="All files">
+    <metrics statements="93" coveredstatements="71" conditionals="20" coveredconditionals="12" methods="38" coveredmethods="25" elements="151" coveredelements="108" complexity="0" loc="93" ncloc="93" packages="2" files="4" classes="4"/>
+    <package name="be">
+      <metrics statements="76" coveredstatements="55" conditionals="20" coveredconditionals="12" methods="29" coveredmethods="17"/>
+      <file name="data.js" path="/Users/raechelodom/Desktop/turing/mod4/palette-picker/be/data.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
@@ -13,8 +14,9 @@
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="server.js" path="/Users/rachaeldrennan/Projects/Module4/Palette-Picker/backend/server.js">
-        <metrics statements="77" coveredstatements="40" conditionals="22" coveredconditionals="7" methods="31" coveredmethods="8"/>
+
+      <file name="server.js" path="/Users/raechelodom/Desktop/turing/mod4/palette-picker/be/server.js">
+        <metrics statements="73" coveredstatements="52" conditionals="20" coveredconditionals="12" methods="29" coveredmethods="17"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="cond" truecount="1" falsecount="1"/>
