@@ -49,20 +49,11 @@ app.get('/api/v1/projects', (req, res) => {
 
 app.get('/api/v1/projects/:id', (req, res) => {
   database('projects').where('id', req.params.id).select()
-    .then(projects => {
-      if (projects.length) res.status(200).json(projects)
-      else res.status(500).json({error})
-    })
-})
-
-app.get('/api/v1/projects/:name', (req, res) => {
-  database('projects').where('name', req.params.name).select()
     .then(project => {
-      if (project) res.status(200).json(project)
+      if (project.length) res.status(200).json(project)
       else res.status(500).json({error})
     })
 })
-
 
 app.post('/api/v1/projects', (req, res) => {
   const project = req.body
@@ -78,7 +69,7 @@ app.post('/api/v1/projects', (req, res) => {
 
 app.post('/api/v1/palettes', (req, res) => {
   const palette = req.body
-  for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6']) {
+  for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6', 'project_id']) {
     if (!palette[requiredParam]) {
       return res.status(422).json(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
     }
@@ -118,7 +109,7 @@ app.put('/api/v1/palettes/:id', (req, res) => {
 
 
 app.delete('/api/v1/projects/:id', (req, res) => { 
-  const { id } = res.params;
+  const { id } = req.body;
   if (!id) return res.status(422).json({ error: `A project with that id does not exist, try again`}); 
   database('palettes').where('project_id', id).del() 
   .then(() => database('projects').where('id', id).del()) 
