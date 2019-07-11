@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest --forceExit",
     "test:watch": "jest --watchAll",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "migrate": "knex migrate:latest --env=test",
+    "seed": "knex seed:run --env=test"
   },
   "repository": {
     "type": "git",
