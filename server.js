@@ -71,8 +71,9 @@ app.post('/api/v1/palettes', (request, response) => {
   const palette = request.body
   for (let requiredParam of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6', 'project_id']) {
     if (!palette[requiredParam]) {
-      return response.status(422).json(`Error! required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
-    }
+      return res.status(422).json(`Error! Required format of Name:<String> and Color:<String>. You're missing a required field of ${requiredParam}`)
+    } 
+
   }
   database('palettes').insert(palette, 'id').then(palette => {
     response.status(201).json({id: palette[0]})
